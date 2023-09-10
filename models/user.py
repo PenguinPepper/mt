@@ -28,8 +28,8 @@ class User(UserModel, Base):
         __tablename__ = 'users'
         email = Column(String(120), nullable=False)
         password = Column(String(120), nullable=False)
-        first_name = Column(String(120), nullable=False)
-        last_name = Column(String(120), nullable=False)
+        name = Column(String(120), nullable=False)
+        surname = Column(String(120), nullable=False)
         profile_id = Column(String(120), Foreignkey(profile.id), nullable=False)
         github_usr_name=Column(String(120), nullable=False)
         cohort_no = Column(Integer, nullable=False)
