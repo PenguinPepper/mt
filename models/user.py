@@ -36,8 +36,8 @@ class User(UserModel, Base):
     else:
         email = ""
         password = ""
-        first_name = ""
-        last_name = ""
+        name = ""
+        surname = ""
         github_usr_name = ""
         cohort_no = 0
 
