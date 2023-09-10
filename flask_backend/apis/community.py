@@ -1,4 +1,4 @@
-rom flask_restx import Namespace, Resource, fields
+from flask_restx import Namespace, Resource, fields
 from flask import request
 from models.user import User
 from models.review import Review
