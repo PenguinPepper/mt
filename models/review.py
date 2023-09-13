@@ -10,7 +10,7 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 
-class Review(UserModel):
+class Review(UserModel, Base):
     """
     Reviews object that has reviews made
 
