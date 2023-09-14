@@ -89,7 +89,7 @@ class DBstorage():
         for clss in classes:
             if cls is None or cls is classes[clss] or cls is clss:
                 table = classes[clss]
-                obj = self.__session.query(table).filter(table.field == value).first()
+                obj = self.__session.query(table).filter_by(table.field = value).first()
         return obj
 
     def get(self, cls, id):
