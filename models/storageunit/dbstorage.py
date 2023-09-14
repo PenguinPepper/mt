@@ -78,6 +78,20 @@ class DBstorage():
         """
         self.__session.remove()
 
+    def search(self, cls, field, value):
+        """query the database by specific field and return those results
+
+        Args:
+            cls (class): class of object to retrieve
+            field (str): column name in table
+            value (str): value of column to search
+        """
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                table = classes[clss]
+                obj = self.__session.query(table).filter(table.field == value).first()
+        return obj
+
     def get(self, cls, id):
         """
         Retrieves an object based on the class and ID.
