@@ -15,7 +15,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 load_dotenv()
 classes = {"UserModel": UserModel, "Review": Review, "User": User}
 
-class DBstorage():
+class DBstorage:
     """Saves classes to Database"""
     __engine = None
     __session = None

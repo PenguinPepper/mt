@@ -1,12 +1,13 @@
 from flask_restx import Namespace, Resource, fields
 from flask import request
+from flask_jwt_required import jwt_required
 from models.user import User
 from models.review import Review
 
 communit_ns = Namespace('Community',
                         description='Community related operations')
 
-community = api.model('Community', {
+community = communit_ns.model('Community', {
     'name': fields.String(),
     'surname': fields.String(),
     'cohort_no': fields.Integer(),
@@ -25,14 +26,16 @@ class CommunityList(Resource):
     """
 
     @api.doc('Community_list')
-    @marshal_list_with(comunity)
+    @communit_ns.marshal_list_with(comunity)
+    @jwt_required()
     def get(self):
         all_users = storage.all(User).values()
         list_users = []
         for user in all_users:
             list_users.append(user.to_dict())
 
-        review = ""        for people in list_users:
+        review = ""
+        for people in list_users:
             """How about i create a link between profile_id
             in user table with review tabele and query that instead"""
             review = storage.get(Review, list_users[people][profile_id])
@@ -50,7 +53,8 @@ class CommunityReview(Resource):
     """"Review a comunity memebers profile"""
 
     @api.doc(description="Review a users profile")
-    @api.marshal_with(community)
+    @communit_ns.marshal_with(community)
+    @jwt_required()
     def post(self):
         """"Leave a review"""
         if not request.get_json():
