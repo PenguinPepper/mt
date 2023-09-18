@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from flask_restx import Namespace, Resource, fields
 from flask import request, make_response, jsonify
 from models.user import User
@@ -36,7 +38,7 @@ class Home(Resource):
 class HomeLogin(Resource):
     """LogIn tosite"""
 
-    @api.doc('sign in')
+    @home_ns.doc('sign in')
     @home_ns.expect(login)
     def post(self):
         data = request.get_json()
@@ -61,7 +63,7 @@ class HomeLogin(Resource):
 class HomeSignUp(Resource):
     """Sign Up for site"""
 
-    @api.doc('sign up')
+    @home_ns.doc('sign up')
     @home_ns.expect(sign_up)
     def post(self):
         data = request.get_json()

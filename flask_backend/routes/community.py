@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
+
 from flask_restx import Namespace, Resource, fields
 from flask import request
-from flask_jwt_required import jwt_required
+from flask_jwt_extended import jwt_required
+import models
 from models.user import User
 from models.review import Review
 
@@ -25,11 +28,10 @@ class CommunityList(Resource):
     Return: the name of users, surname, cohort_no and review percentage
     """
 
-    @api.doc('Community_list')
-    @communit_ns.marshal_list_with(comunity)
+    @communit_ns.marshal_list_with(community)
     @jwt_required()
     def get(self):
-        all_users = storage.all(User).values()
+        all_users = models.storage.all(User).values()
         list_users = []
         for user in all_users:
             list_users.append(user.to_dict())
@@ -52,11 +54,10 @@ class CommunityList(Resource):
 class CommunityReview(Resource):
     """"Review a comunity memebers profile"""
 
-    @api.doc(description="Review a users profile")
     @communit_ns.marshal_with(community)
     @jwt_required()
     def post(self):
-        """"Leave a review"""
+        """"Leave a review
         if not request.get_json():
             api.abort(400, "This is not valid JSON")
 
@@ -64,3 +65,5 @@ class CommunityReview(Resource):
 
         new_review = Review(
                 )
+        """
+        pass

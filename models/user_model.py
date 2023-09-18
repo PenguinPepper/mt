@@ -13,7 +13,10 @@ import sqlalchemy
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
+if models.storage_t == "db":
+    Base = declarative_base()
+else:
+    Base = object
 
 
 class UserModel:
@@ -26,9 +29,10 @@ class UserModel:
         to_dict(): returns a dictionary of all key value pairs of instance
         delete(): deletes the instance frnm stoage
     """
-    id = Column(String(60), primary_key=True)
-    created_at = Column(Datetime, default=datetime.now))
-    updated_at = Column(Datetime,default=datetime.now)
+    if models.storage_t == "db":
+        id = Column(String(60), primary_key=True)
+        created_at = Column(DateTime, default=datetime.now)
+        updated_at = Column(DateTime,default=datetime.now)
 
     def __init__(self, *args, **kwargs):
         """
