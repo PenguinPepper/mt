@@ -5,7 +5,9 @@ from flask import request, make_response, jsonify
 from models.user import User
 from models import storage
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token
+from flask_jwt_extended import (JWTManager,
+        jwt_required, create_access_token, 
+        create_refresh_token, get_jwt_identity)
 
 #JWTManager(app)
 
@@ -43,19 +45,21 @@ class HomeLogin(Resource):
     def post(self):
         data = request.get_json()
 
-        email_address = data.get('email')
+        email = data.get('email')
         password = data.get('password')
 
-        db_user = storage.search(User, email, email_address)
+        db_user = storage.search(User, email)
 
         if db_user and check_password_hash(db_user.password, password):
             access_token = create_access_token(identity=db_user.email)
             refresh_token = create_refresh_token(identity=db_user.email)
 
-        return jsonify(
-                {'access_token': acess_token,
+            return jsonify(
+                {'access_token': access_token,
                  'refrsh_token': refresh_token}
                 )
+        else:
+            return make_response(jsonify({"message": "Invalid username or password"}), 403)
 
         
 
@@ -80,3 +84,12 @@ class HomeSignUp(Resource):
         new_user.save()
 
         return make_response(jsonify({"message": "Profile sucessfully created proceed to login"}), 201)
+
+@home_ns.route("/refresh")
+class RefreshResource(Resource):
+    @jwt_required(refresh=True)
+    def post(self):
+        current_user = get_jwt_identity()
+        new_access_token = create_access_token(identity=current_user)
+
+        return make_response(jsonify({"access_token": new_access_token}), 200)

@@ -6,11 +6,11 @@ import models
 from models.user_model import UserModel, Base
 from os import getenv
 import sqlalchemy
-from sqlalchemy import Column, String, Float
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 
-class Review(UserModel):
+class Review(UserModel, Base):
     """
     Reviews object that has reviews made
 
@@ -19,19 +19,15 @@ class Review(UserModel):
         user_id (str): has user.id
         text (str): review text
         review_percent (float): overall percentage user was given
-
     """
+
     def __init__(self, *args, **kwargs):
-        """Initialise review"""
+        """ Initialise review"""
         super().__init__(*args, **kwargs)
 
     if models.storage_t == "db":
         __tablename__ = "review"
-        profile_id = Column(
-                String(60), ForeignKey('profile.id'), nullable=False)
-        user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
         text = Column(String(1024), nullable=False)
-        review_percent = Column(Float, nulllable=False)
 
     else:
         profile_id = ""

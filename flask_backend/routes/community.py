@@ -13,9 +13,9 @@ communit_ns = Namespace('Community',
 community = communit_ns.model('Community', {
     'name': fields.String(),
     'surname': fields.String(),
-    'cohort_no': fields.Integer(),
-    'prodile-id': fields.Integer(),
-    'review_percent': fields.Integer(),
+    'cohort_no': fields.String(),
+    'email': fields.String(),
+    'github_name': fields.String(),
     })
 
 
@@ -36,18 +36,20 @@ class CommunityList(Resource):
         for user in all_users:
             list_users.append(user.to_dict())
 
+        """
         review = ""
         for people in list_users:
-            """How about i create a link between profile_id
-            in user table with review tabele and query that instead"""
+            How about i create a link between profile_id
+            in user table with review tabele and query that instead
             review = storage.get(Review, list_users[people][profile_id])
 
         objects = {"name": list_users.name,
                    "surname": list_users.surname,
                    "cohort-no": list_users.cohort_no,
                    "review_percentage": review.percent}
+        """
 
-        return objects
+        return list_users
 
 
 @communit_ns.route("/community/<int:profile_id>")

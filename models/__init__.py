@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """Initialize the models package"""
 
-from os import getenv
 from dotenv import load_dotenv
+from os import getenv
 
 
 load_dotenv()
-storage_t = getenv("HBNB_TYPE_STORAGE")
+storage_t = getenv("MISSION_T_TYPE_STORAGE")
 
 if storage_t == "db":
     from models.storageunit.dbstorage import DBstorage

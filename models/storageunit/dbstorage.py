@@ -3,7 +3,7 @@
 
 
 import models
-from models.user_model import UserModel
+from models.user_model import UserModel, Base
 from models.review import Review
 from models.user import User
 from dotenv import load_dotenv
@@ -26,9 +26,11 @@ class DBstorage:
         MISSION_T_PWD = getenv('MISSION_T_PWD')
         MISSION_T_MYSQL_HOST = getenv('MISSION_T_MYSQL_HOST')
         MISSION_T_DB = getenv('MISSION_T_DB')
-        cmd = f"mysql+mysqldb://{MISSION_T_MYSQL_USER}:\
-                {MISSION_T_PWD}@{MISSION_T_MYSQL_HOST}/{MISSION_T_DB}"
-        self.__engine = create_engine(cmd)
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+                                      format(MISSION_T_MYSQL_USER,
+                                             MISSION_T_PWD,
+                                             MISSION_T_MYSQL_HOST,
+                                             MISSION_T_DB))
 
     def all(self, cls=None):
         """
@@ -77,6 +79,20 @@ class DBstorage:
         """
         """
         self.__session.remove()
+
+    def search(self, cls, value):
+        """query the database by specific field and return those results
+
+        Args:
+            cls (class): class of object to retrieve
+            field (str): column name in table
+            value (str): value of column to search
+        """
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                table = classes[clss]
+                obj = self.__session.query(table).filter(table.email == value).first()
+        return obj
 
     def get(self, cls, id):
         """

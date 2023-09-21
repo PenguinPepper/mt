@@ -12,7 +12,7 @@ api = Api(
         description="Review application for students"
         )
 
-api.add_namespace(home_ns)
-api.add_namespace(communit_ns)
-api.add_namespace(profile_ns)
+api.add_namespace(home_ns, path='/missiontogether/home/')
+api.add_namespace(communit_ns, path='/missiontogether/community/')
+api.add_namespace(profile_ns, path='/missiontogether/profile/')
 
