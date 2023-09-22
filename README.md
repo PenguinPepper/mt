@@ -5,14 +5,20 @@ Mission Together is a review app, created to help fellow ALX students share thei
 Join us and start sharing your experiences today!
 
 ## Tech Stack
-###### Frontend:
+###### [Frontend](https://github.com/PenguinPepper/mt.v1/tree/main/react_frontend):
   * ReactJS:
     * react-hook-form
   * TailwindCSS
 ###### Backend:
-  * Flask:
+  * [Flask](https://github.com/PenguinPepper/mt.v1/tree/main/flask_backend):
     * Flask Restx
     * Flask JWT Extended
 ###### Database:
-  * MYySQL:
-    *     Sqlalchemy
+  * [MYySQL](https://github.com/PenguinPepper/mt.v1/tree/main/models/storageunit):
+    * Sqlalchemy
+ 
+Make collaboration easy
+[www.missiont.tech](https://missiont.tech/)
+
+Connect with developers:
+[Elizabeth Pfachi](https://www.linkedin.com/in/elizabethpfachi/)
