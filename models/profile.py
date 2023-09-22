@@ -14,7 +14,7 @@ from sqlalchemy.orm import relationship
 
 class Profile(UserModel, Base):
     """Class for User profile"""
-     def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """initializes user"""
         super().__init__(*args, **kwargs)
         self.profile_id = str(uuid4())

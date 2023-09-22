@@ -19,18 +19,15 @@ class Review(UserModel, Base):
         user_id (str): has user.id
         text (str): review text
         review_percent (float): overall percentage user was given
-
     """
+
     def __init__(self, *args, **kwargs):
-        """Initialise review"""
+        """ Initialise review"""
         super().__init__(*args, **kwargs)
 
     if models.storage_t == "db":
         __tablename__ = "review"
-        profile_id = Column(String(60), ForeignKey('profile.id'), nullable=False)
-        user_id = Column(String(60), ForeignKey('users.id'), nullable=False))
         text = Column(String(1024), nullable=False)
-        review_percent = Column(Float, nulllanle=False)
 
     else:
         profile_id = ""
