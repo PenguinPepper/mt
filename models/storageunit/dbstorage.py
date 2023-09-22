@@ -80,6 +80,7 @@ class DBstorage:
         """
         self.__session.remove()
 
+
     def search(self, cls, value):
         """query the database by specific field and return those results
 
