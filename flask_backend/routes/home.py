@@ -28,14 +28,6 @@ login = home_ns.model('LogIn', {
     'password': fields.String()
     })
 
-# @home_ns.route('/')
-# class Home(Resource):
-#     """"Landing page is this necessar??"""
-
-#     @home_ns.doc('Home')
-#     def get(self):
-#         pass
-
 
 @home_ns.route("/signup")
 class HomeSignUp(Resource):
