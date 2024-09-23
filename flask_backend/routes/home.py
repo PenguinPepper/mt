@@ -28,40 +28,6 @@ login = home_ns.model('LogIn', {
     'password': fields.String()
     })
 
-@home_ns.route('/')
-class Home(Resource):
-    """"Landing page"""
-
-    @home_ns.doc('Home')
-    def get(self):
-        pass
-
-@home_ns.route("/login")
-class HomeLogin(Resource):
-    """LogIn tosite"""
-
-    @home_ns.doc('sign in')
-    @home_ns.expect(login)
-    def post(self):
-        data = request.get_json()
-
-        email = data.get('email')
-        password = data.get('password')
-
-        db_user = storage.search(User, email)
-
-        if db_user and check_password_hash(db_user.password, password):
-            access_token = create_access_token(identity=db_user.email)
-            refresh_token = create_refresh_token(identity=db_user.email)
-
-            return jsonify(
-                {'access_token': access_token,
-                 'refrsh_token': refresh_token}
-                )
-        else:
-            return make_response(jsonify({"message": "Invalid username or password"}), 403)
-
-        
 
 @home_ns.route("/signup")
 class HomeSignUp(Resource):
@@ -84,6 +50,34 @@ class HomeSignUp(Resource):
         new_user.save()
 
         return make_response(jsonify({"message": "Profile sucessfully created proceed to login"}), 201)
+
+
+@home_ns.route("/login")
+class HomeLogin(Resource):
+    """LogIn tosite"""
+
+    @home_ns.doc('Log In')
+    @home_ns.expect(login)
+    def post(self):
+        data = request.get_json()
+
+        email = data.get('email')
+        password = data.get('password')
+
+        db_user = storage.search(User, email)
+
+        if db_user and check_password_hash(db_user.password, password):
+            access_token = create_access_token(identity=db_user.email)
+            refresh_token = create_refresh_token(identity=db_user.email)
+
+            return jsonify(
+                {'access_token': access_token,
+                 'refrsh_token': refresh_token}
+                )
+        else:
+            return make_response(jsonify({"message": "Invalid username or password"}), 403)
+
+        
 
 @home_ns.route("/refresh")
 class RefreshResource(Resource):

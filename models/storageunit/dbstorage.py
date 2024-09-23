@@ -68,7 +68,7 @@ class DBstorage:
 
     def reload(self):
         """
-        create current database from from sessions and tables ib database
+        create current database from sessions and add tables in database
         """
         Base.metadata.create_all(self.__engine)
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)

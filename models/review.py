@@ -6,7 +6,7 @@ import models
 from models.user_model import UserModel, Base
 from os import getenv
 import sqlalchemy
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Float
 from sqlalchemy.orm import relationship
 
 
@@ -28,6 +28,7 @@ class Review(UserModel, Base):
     if models.storage_t == "db":
         __tablename__ = "review"
         text = Column(String(1024), nullable=False)
+        review_percent = Column(Float, nullable=False)
 
     else:
         profile_id = ""
